@@ -3,130 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Быстрый Гонзалес - Анекдот</title>
+    <title>Быстрый Гонзалес - Полная история</title>
     <style>
-        body {
-            background: linear-gradient(45deg, #2c5530, #4a7856);
-            font-family: 'Comic Sans MS', cursive;
-            color: #fff;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
+        /* ... предыдущие стили ... */
+
+        /* Новые анимации */
+        @keyframes explosion {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            position: relative;
+        @keyframes gonzalesRun {
+            0% { left: 50%; transform: translateX(-50%); }
+            100% { left: 100%; transform: translateX(100%) rotate(-15deg); }
         }
 
-        h1 {
-            text-align: center;
-            color: #ffd700;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px #000;
-            animation: titleShake 0.5s ease infinite;
-        }
-
-        .story-text {
-            font-size: 1.2em;
-            position: relative;
-        }
-
-        .character {
-            color: #ff9999;
-            font-weight: bold;
-        }
-
-        .laughter-track {
+        .explosion {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #fff;
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ff4500 10%, #ff0000 70%);
+            border-radius: 50%;
+            animation: explosion 0.8s ease-out;
+            pointer-events: none;
+            display: none;
         }
 
-        @keyframes titleShake {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(2deg); }
-            75% { transform: rotate(-2deg); }
+        .gonzales {
+            position: fixed;
+            width: 120px;
+            bottom: 20%;
+            animation: gonzalesRun 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: none;
         }
 
-        .mouse {
+        .dust {
             position: absolute;
-            width: 30px;
-            animation: run 3s linear infinite;
+            width: 50px;
             opacity: 0.7;
+            animation: dustFade 1s ease-out;
         }
 
-        @keyframes run {
-            0% { left: -30px; }
-            100% { left: 100%; }
+        @keyframes dustFade {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <img src="https://em-content.zobj.net/source/microsoft/319/mouse-face_1f42d.png" class="mouse" alt="мышка">
+    <!-- ... предыдущая разметка ... -->
     
-    <div class="container">
-        <h1>🐭 Быстрый Гонзалес 🏃♂️</h1>
-        
-        <div class="story-text">
-            <p>Ранняя весна. По зелёному парку идёт молодая пара — парень с девушкой. Повсюду зелёные деревья, птички поют, то и дело всякие мышки им путь перебегают.</p>
-
-            <p>Парень, приобняв свою девушку, начинает ей намекать:<br>
-            <span class="character">Парень:</span> Давай зайдём с тобой вон в те кустики...</p>
-
-            <p>Девушка смущается, но соглашается. Заходят они в лес, видят подходящие кустики, зашли в них, ну и начинают "миловаться".</p>
-
-            <p>В самый разгар процесса парню очень захотелось в туалет по-маленькому. Он останавливается и говорит:<br>
-            <span class="character">Парень:</span> Слушай, я сейчас отойду в соседние кустики, немного отолью и вернусь. Подожди пару минут!</p>
-
-            <p><span class="character">Девушка:</span> Ты что, не знаешь, что в этом парке живёт <em>Быстрый Гонзалес</em>?!</p>
-
-            <p>После серии забавных предложений и ответов, парень решает:<br>
-            <span class="character">Парень:</span> Окей, я заткну тебя пальцем, отолью тут же и продолжим!</p>
-
-            <p style="font-size: 1.5em; text-align: center; color: #ffd700;">🍂 И в этот момент... 🍂</p>
-        </div>
-    </div>
-
-    <!-- Аудио для смеха -->
-    <audio id="laughter" src="https://assets.mixkit.co/active_storage/sfx/2861/2861-preview.mp3"></audio>
-
-    <div class="laughter-track" onclick="playLaughter()">
-        🔈 Включить смех
-    </div>
-
+    <div class="explosion"></div>
+    <img src="https://static.wikia.nocookie.net/looneytunes/images/b/be/Speedy_Gonzales_2003.png" 
+         class="gonzales" alt="Гонзалес">
+    
     <script>
-        function playLaughter() {
-            const audio = document.getElementById('laughter');
-            audio.volume = 0.3;
-            audio.play();
+        // ... предыдущий код ...
+
+        // Функция для кульминации
+        function playClimax() {
+            // Взрыв
+            const explosion = document.querySelector('.explosion');
+            explosion.style.display = 'block';
+            explosion.style.left = `${Math.random() * 70 + 15}%`;
+            explosion.style.top = `${Math.random() * 70 + 15}%`;
             
-            // Анимация при проигрывании
-            document.body.style.transform = 'rotate(1deg)';
-            setTimeout(() => document.body.style.transform = '', 100);
+            // Звук взрыва
+            const boomSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2441/2441-preview.mp3');
+            boomSound.volume = 0.5;
+            boomSound.play();
+
+            // Показ Гонзалеса
+            const gonzales = document.querySelector('.gonzales');
+            gonzales.style.display = 'block';
+            
+            // Запуск анимации через 200ms
+            setTimeout(() => {
+                gonzales.style.animation = 'gonzalesRun 1.5s forwards';
+                
+                // Эффект пыли
+                const dust = document.createElement('img');
+                dust.src = 'https://cdn-icons-png.flaticon.com/512/7403/7403785.png';
+                dust.className = 'dust';
+                dust.style.left = gonzales.offsetLeft + 'px';
+                dust.style.bottom = '20%';
+                document.body.appendChild(dust);
+                
+                setTimeout(() => dust.remove(), 1000);
+            }, 200);
+
+            // Сброс анимаций через 2 секунды
+            setTimeout(() => {
+                explosion.style.display = 'none';
+                gonzales.style.display = 'none';
+                gonzales.style.animation = '';
+            }, 2000);
         }
 
-        // Автозапуск анимации мышей
-        setInterval(() => {
-            const mouse = document.createElement('img');
-            mouse.src = 'https://em-content.zobj.net/source/microsoft/319/mouse-face_1f42d.png';
-            mouse.className = 'mouse';
-            mouse.style.top = Math.random() * 80 + 10 + '%';
-            document.body.appendChild(mouse);
-            
-            setTimeout(() => mouse.remove(), 3000);
-        }, 5000);
+        // Автоматический запуск при прокрутке к финалу
+        const climaxTrigger = document.querySelector('.dialogue:last-child');
+        const observer = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                playClimax();
+            }
+        }, { threshold: 0.5 });
+
+        observer.observe(climaxTrigger);
     </script>
 </body>
 </html>
