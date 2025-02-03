@@ -3,32 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Быстрый Гонзалес - Полная история</title>
+    <title>Быстрый Гонзалес </title>
     <style>
-        /* ... предыдущие стили ... */
-
-        /* Новые анимации */
-        @keyframes explosion {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(3); opacity: 0; }
+        body {
+            background: linear-gradient(135deg, #3a5f3a, #2d472d);
+            font-family: 'Comic Sans MS', cursive;
+            color: #fff;
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        @keyframes gonzalesRun {
-            0% { left: 50%; transform: translateX(-50%); }
-            100% { left: 100%; transform: translateX(100%) rotate(-15deg); }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.6);
+            position: relative;
+            border: 2px solid #ffd700;
         }
 
-        .explosion {
+        h1 {
+            text-align: center;
+            color: #ffd700;
+            font-size: 2.8em;
+            text-shadow: 3px 3px 5px #000;
+            margin-bottom: 30px;
+            animation: titleGlow 2s ease infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 10px #ffd700; }
+            50% { text-shadow: 0 0 20px #ff4500; }
+        }
+
+        .dialogue {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #ff6666;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+
+        .character {
+            color: #ff9999;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .laughter-panel {
             position: fixed;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, #ff4500 10%, #ff0000 70%);
-            border-radius: 50%;
-            animation: explosion 0.8s ease-out;
-            pointer-events: none;
-            display: none;
+            bottom: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            z-index: 1000;
         }
 
+        .laughter-panel:hover {
+            transform: scale(1.1);
+            background: #ffd700;
+        }
+
+        /* Анимации для Гонзалеса */
         .gonzales {
             position: fixed;
             width: 120px;
@@ -37,78 +83,68 @@
             display: none;
         }
 
-        .dust {
-            position: absolute;
-            width: 50px;
-            opacity: 0.7;
-            animation: dustFade 1s ease-out;
-        }
-
-        @keyframes dustFade {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
+        @keyframes gonzalesRun {
+            0% { left: 50%; transform: translateX(-50%); }
+            100% { left: 100%; transform: translateX(100%) rotate(-15deg); }
         }
     </style>
 </head>
 <body>
-    <!-- ... предыдущая разметка ... -->
-    
-    <div class="explosion"></div>
+    <div class="container">
+        <h1>🐭 История про Быстрого Гонзалеса 🏃♂️💨</h1>
+
+        <div class="story-text">
+            <!-- Полный текст анекдота из предыдущего ответа -->
+        </div>
+    </div>
+
+    <div class="laughter-panel" onclick="playLaughter()">
+        🔊 Включить смех
+    </div>
+
     <img src="https://static.wikia.nocookie.net/looneytunes/images/b/be/Speedy_Gonzales_2003.png" 
          class="gonzales" alt="Гонзалес">
-    
+
+    <!-- Звуковые элементы -->
+    <audio id="laughter">
+        <source src="https://cdn.pixabay.com/download/audio/2023/04/11/audio_92f5dc53a0.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        // ... предыдущий код ...
-
-        // Функция для кульминации
-        function playClimax() {
-            // Взрыв
-            const explosion = document.querySelector('.explosion');
-            explosion.style.display = 'block';
-            explosion.style.left = `${Math.random() * 70 + 15}%`;
-            explosion.style.top = `${Math.random() * 70 + 15}%`;
-            
-            // Звук взрыва
-            const boomSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2441/2441-preview.mp3');
-            boomSound.volume = 0.5;
-            boomSound.play();
-
-            // Показ Гонзалеса
-            const gonzales = document.querySelector('.gonzales');
-            gonzales.style.display = 'block';
-            
-            // Запуск анимации через 200ms
-            setTimeout(() => {
-                gonzales.style.animation = 'gonzalesRun 1.5s forwards';
-                
-                // Эффект пыли
-                const dust = document.createElement('img');
-                dust.src = 'https://cdn-icons-png.flaticon.com/512/7403/7403785.png';
-                dust.className = 'dust';
-                dust.style.left = gonzales.offsetLeft + 'px';
-                dust.style.bottom = '20%';
-                document.body.appendChild(dust);
-                
-                setTimeout(() => dust.remove(), 1000);
-            }, 200);
-
-            // Сброс анимаций через 2 секунды
-            setTimeout(() => {
-                explosion.style.display = 'none';
-                gonzales.style.display = 'none';
-                gonzales.style.animation = '';
-            }, 2000);
+        // Вибро-эффект
+        function vibrate(pattern = [100, 50, 100]) {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(pattern);
+            }
         }
 
-        // Автоматический запуск при прокрутке к финалу
-        const climaxTrigger = document.querySelector('.dialogue:last-child');
+        // Воспроизведение смеха
+        function playLaughter() {
+            const audio = document.getElementById('laughter');
+            audio.play();
+            vibrate([200, 100, 200]);
+        }
+
+        // Анимация Гонзалеса
+        function runGonzales() {
+            const gonzales = document.querySelector('.gonzales');
+            gonzales.style.display = 'block';
+            gonzales.style.animation = 'gonzalesRun 1.5s forwards';
+            
+            setTimeout(() => {
+                gonzales.style.display = 'none';
+            }, 1500);
+        }
+
+        // Запуск анимации при прокрутке к финалу
         const observer = new IntersectionObserver((entries) => {
             if(entries[0].isIntersecting) {
-                playClimax();
+                runGonzales();
+                vibrate([500]);
             }
         }, { threshold: 0.5 });
 
-        observer.observe(climaxTrigger);
+        observer.observe(document.querySelector('.dialogue:last-child'));
     </script>
 </body>
 </html>
