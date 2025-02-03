@@ -3,38 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Говорящий помидор!</title>
+    <title>Быстрый Гонзалес - Анекдот</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: #ff4444;
-            font-family: Comic Sans MS, cursive;
-            text-align: center;
-            color: white;
+            background: linear-gradient(45deg, #2c5530, #4a7856);
+            font-family: 'Comic Sans MS', cursive;
+            color: #fff;
+            line-height: 1.6;
             padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
-        .joke {
-            font-size: 24px;
-            max-width: 600px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffd700;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px #000;
+            animation: titleShake 0.5s ease infinite;
+        }
+
+        .story-text {
+            font-size: 1.2em;
+            position: relative;
+        }
+
+        .character {
+            color: #ff9999;
+            font-weight: bold;
+        }
+
+        .laughter-track {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        @keyframes titleShake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(2deg); }
+            75% { transform: rotate(-2deg); }
+        }
+
+        .mouse {
+            position: absolute;
+            width: 30px;
+            animation: run 3s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes run {
+            0% { left: -30px; }
+            100% { left: 100%; }
         }
     </style>
 </head>
 <body>
-    <div class="joke">
-        <p>Лежат два помидора в холодильнике.<br>
-        Один из них вдруг говорит:<br>
-        - Брр, как тут холодно!<br><br>
+    <img src="https://em-content.zobj.net/source/microsoft/319/mouse-face_1f42d.png" class="mouse" alt="мышка">
+    
+    <div class="container">
+        <h1>🐭 Быстрый Гонзалес 🏃♂️</h1>
         
-        Второй ошалело на него посмотрел<br> 
-        и как заорет:<br>
-        - Ааааа!!! Говорящий помидор!!!</p>
-        
-        <p style="font-size: 16px; margin-top: 50px;">🍅 🔥 Этот анекдот посетил вас без предупреждения! 🔥 🍅</p>
+        <div class="story-text">
+            <p>Ранняя весна. По зелёному парку идёт молодая пара — парень с девушкой. Повсюду зелёные деревья, птички поют, то и дело всякие мышки им путь перебегают.</p>
+
+            <p>Парень, приобняв свою девушку, начинает ей намекать:<br>
+            <span class="character">Парень:</span> Давай зайдём с тобой вон в те кустики...</p>
+
+            <p>Девушка смущается, но соглашается. Заходят они в лес, видят подходящие кустики, зашли в них, ну и начинают "миловаться".</p>
+
+            <p>В самый разгар процесса парню очень захотелось в туалет по-маленькому. Он останавливается и говорит:<br>
+            <span class="character">Парень:</span> Слушай, я сейчас отойду в соседние кустики, немного отолью и вернусь. Подожди пару минут!</p>
+
+            <p><span class="character">Девушка:</span> Ты что, не знаешь, что в этом парке живёт <em>Быстрый Гонзалес</em>?!</p>
+
+            <p>После серии забавных предложений и ответов, парень решает:<br>
+            <span class="character">Парень:</span> Окей, я заткну тебя пальцем, отолью тут же и продолжим!</p>
+
+            <p style="font-size: 1.5em; text-align: center; color: #ffd700;">🍂 И в этот момент... 🍂</p>
+        </div>
     </div>
+
+    <!-- Аудио для смеха -->
+    <audio id="laughter" src="https://assets.mixkit.co/active_storage/sfx/2861/2861-preview.mp3"></audio>
+
+    <div class="laughter-track" onclick="playLaughter()">
+        🔈 Включить смех
+    </div>
+
+    <script>
+        function playLaughter() {
+            const audio = document.getElementById('laughter');
+            audio.volume = 0.3;
+            audio.play();
+            
+            // Анимация при проигрывании
+            document.body.style.transform = 'rotate(1deg)';
+            setTimeout(() => document.body.style.transform = '', 100);
+        }
+
+        // Автозапуск анимации мышей
+        setInterval(() => {
+            const mouse = document.createElement('img');
+            mouse.src = 'https://em-content.zobj.net/source/microsoft/319/mouse-face_1f42d.png';
+            mouse.className = 'mouse';
+            mouse.style.top = Math.random() * 80 + 10 + '%';
+            document.body.appendChild(mouse);
+            
+            setTimeout(() => mouse.remove(), 3000);
+        }, 5000);
+    </script>
 </body>
 </html>
